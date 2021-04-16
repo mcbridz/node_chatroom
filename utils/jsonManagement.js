@@ -4,8 +4,8 @@ function addMessageTo(filename, msgObj) {
     if (!fs.existsSync(pathandFile)) {
         let firstMessage = { msgObj }
         let date = new Date()
-        let newfilename = date.getMonth + date.getDay + date.getFullYear
-        fs.appendFile('/message/' + newfilename.toString() + '.json', JSON.stringify(firstMessage), (err) => {
+        let newfilename = date.getMonth.toString() + date.getDay.toString() + date.getFullYear.toString()
+        fs.appendFile('/message/' + newfilename + '.json', JSON.stringify(firstMessage), (err) => {
             if (err) throw err
             console.log(`File created at ${newfilename}`)
         })

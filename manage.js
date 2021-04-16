@@ -1,25 +1,34 @@
 const http = require('http')
 const port = 5000
-const addMessageTo = require("./utils/jsonManagement")
+const jsonManagement = require("./utils/jsonManagement")
 http.createServer((req, res) => {
     let path = new URL(`http://localhost:${port}${req.url}`)
     console.log(path)
-    let body = ''
+    let body = []
     req.on('data', chunk => {
-        body += chunk.toString()
-        // console.log(body)
+        console.log('ADDING CHUNK')
+        body.push(chunk)
+        console.log(body)
+        console.log(`Currently ${body.length} chunks accumulated.`)
     })
+    console.log(body)
     req.on('end', () => {
+        console.log('END TRIGGERED')
+        body = Buffer.concat(body).toString()
         console.log(body)
         if (req.method === 'POST') {
             console.log('POST')
-            if (req.pathname === '/messages') {
+            console.log(path.pathname)
+            if (path.pathname === '/messages') {
                 console.log('/messages')
-                // console.log(body)
+                msgObj = JSON.parse(body)
                 let date = new Date()
-                let filename = date.getMonth + date.getDay + date.getFullYear
+                let filename = date.getMonth.toString() + date.getDay.toString() + date.getFullYear.toString()
+                jsonManagement.addMessageTo(filename, msgObj)
+                res.end(`Added message object to ${filename}.json`)
             }
         }
+        res.end('No processing of request occurred.')
     })
 }).listen(port, () => {
     console.log(`Listening on port: ${port}`)

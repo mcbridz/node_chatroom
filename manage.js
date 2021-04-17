@@ -1,3 +1,14 @@
+/////////////////////////////////////////////////
+//            Testing Command Examples         //
+// curl http://localhost:5000/messages         //
+//          - gets today's messages            //
+// curl -H "Content-Type: application/json"    //
+// http://localhost:5000/messages -X POST -d   //
+//  "{\"user\": \"testaccount\",\"message\":   //
+//  \"test-test-one-two-three...\"}"           //
+//          - adds new message by JSON-array   //
+/////////////////////////////////////////////////
+
 const http = require('http')
 const port = 5000
 const jsonManagement = require("./utils/jsonManagement")
@@ -32,10 +43,11 @@ http.createServer((req, res) => {
         }
         else if (req.method === 'GET') {
             if (path.pathname === '/messages') {
-                messagesJSON = jsonManagement.getMessagesJSON(filename)
-                console.log('Sending the following, ' + typeof (messagesJSON) + ' with the contents:')
-                console.log(messagesJSON)
-                res.end(messagesJson)
+                jsonManagement.getMessagesJSON(filename, (data) => {
+                    // console.log('Sending the following, ' + typeof (data) + ' with the contents:')
+                    // console.log(data)
+                    res.end(data)
+                })
             }
         }
         else res.end('No processing of request occurred.')

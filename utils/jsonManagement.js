@@ -2,7 +2,7 @@ const fs = require('fs')
 function addMessageTo(filename, msgObj) {
     let pathandFile = __dirname + `/../messages/${filename}.json`
     if (!fs.existsSync(pathandFile)) {
-        let firstMessage = { msgObj }
+        let firstMessage = msgObj
         let date = new Date()
         let newfilename = date.getMonth().toString() + date.getDay().toString() + date.getFullYear().toString()
         fs.writeFile(__dirname + '/../messages/' + newfilename + '.json', JSON.stringify([firstMessage]), (err) => {
@@ -22,7 +22,7 @@ function addMessageTo(filename, msgObj) {
         })
     }
 }//C:\Users\mcbri\Documents\code\node_chatroom\messages
-function getMessagesJSON(filename) {
+function getMessagesJSON(filename, callback) {
     let pathandFile = __dirname + `/../messages/${filename}.json`
     if (!fs.existsSync(pathandFile)) {
         throw `Error 404: File ${filename} does not exist`
@@ -30,7 +30,8 @@ function getMessagesJSON(filename) {
         fs.readFile(pathandFile, 'utf-8', (err, data) => {
             if (err) throw err
             console.log(`read file type: ${typeof (data)}`)
-            return data
+            console.log(data)
+            callback(data)
         })
     }
 }

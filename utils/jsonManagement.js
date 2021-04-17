@@ -22,4 +22,16 @@ function addMessageTo(filename, msgObj) {
         })
     }
 }//C:\Users\mcbri\Documents\code\node_chatroom\messages
-module.exports = { addMessageTo }
+function getMessagesJSON(filename) {
+    let pathandFile = __dirname + `/../messages/${filename}.json`
+    if (!fs.existsSync(pathandFile)) {
+        throw `Error 404: File ${filename} does not exist`
+    } else {
+        fs.readFile(pathandFile, 'utf-8', (err, data) => {
+            if (err) throw err
+            console.log(`read file type: ${typeof (data)}`)
+            return data
+        })
+    }
+}
+module.exports = { addMessageTo, getMessagesJSON }

@@ -1,9 +1,11 @@
 [
     {
-        "msgObj": {
-            "user": "testaccount",
-            "message": "test-test-one-two-three..."
-        }
+        "user": "testaccount",
+        "message": "test-test-one-two-three..."
+    },
+    {
+        "user": "testaccount",
+        "message": "test-test-one-two-three..."
     },
     {
         "user": "testaccount",

@@ -9,6 +9,11 @@
 //          - adds new message by JSON-array   //
 /////////////////////////////////////////////////
 
+
+//   Easier to copy commands
+//   curl -H "Content-Type: application/json" http://localhost:5000/messages -X POST -d "{\"user\": \"testaccount\",\"message\": \"test-test-one-two-three...\"}"
+//   curl http://localhost:5000/messages
+
 const http = require('http')
 const port = 5000
 const jsonManagement = require("./utils/jsonManagement")
@@ -27,7 +32,7 @@ http.createServer((req, res) => {
         let date = new Date()
         let filename = date.getMonth().toString() + date.getDay().toString() + date.getFullYear().toString()
         // console.log('END TRIGGERED')
-        // body = Buffer.concat(body).toString()
+        body = Buffer.concat(body).toString()
         // console.log(body)
         if (req.method === 'POST') {
             // console.log('POST')
